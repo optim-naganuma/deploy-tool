@@ -2,7 +2,7 @@ class GitDeploy
   CONF_FILE = "#{BASE_DIR}/config/config.yml"
   STATUS_FILE = "#{BASE_DIR}/config/status.yml"
 
-  autoload :Cgi, "git_deploy/cgi.rb"
+  autoload :Cgi,    "git_deploy/cgi.rb"
   autoload :Server, "git_deploy/server.rb"
 
   def config
