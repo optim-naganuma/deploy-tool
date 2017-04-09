@@ -1,0 +1,24 @@
+%html
+  %head
+  %body
+    %table
+      %tr
+        %th
+          Path
+        %th
+          Message
+        %th
+          Last Check At
+        %th
+      - git_deploy.status.each do | path, s |
+        %tr
+          %td
+            = path
+          %td
+            - s["message"].each do | m |
+              %pre= m
+          %td
+            = s["last_check_at"]
+          %td
+            %a{href:"?target=#{path}&command=update"}
+              Update
