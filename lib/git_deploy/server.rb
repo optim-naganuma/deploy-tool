@@ -8,7 +8,7 @@ class GitDeploy::Server < WEBrick::HTTPServer
       Port:           3000,
       DocumentRoot:   "#{BASE_DIR}/public")
 
-    self.mount("/", WEBrick::HTTPServlet::CGIHandler, "#{BASE_DIR}/script/cgi.rb")
+    self.mount("/", GitDeploy::Cgi)
 
   end
 

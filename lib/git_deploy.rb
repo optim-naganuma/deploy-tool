@@ -24,25 +24,33 @@ class GitDeploy
 
   def run
     Dir["#{config["target_path"]}/*/"].each do | path |
-      begin
-        Dir.chdir(path) do
-          Tempfile.open("log", "#{BASE_DIR}/tmp/") do | io |
+      git_pull_for(path)
+    end
+  end
 
-            git_update(io: io)
+  def git_pull_for(path)
+    self.status[path] ||= {}
 
-            io.rewind
-            message = io.read
+    Dir.chdir(path) do
+      Tempfile.open("log", "#{BASE_DIR}/tmp/") do | io |
 
-            self.status[path] ||= {}
-            self.status[path]["message"] = message.split(/[\r\n]/)
-            self.status[path]["last_check_at"] = now
+        git_update(io: io)
 
-          end
-        end
-      ensure
-        update_status
+        io.rewind
+        message = io.read
+
+        self.status[path]["message"] = message.split(/[\r\n]/)
+        self.status[path]["last_check_at"] = now
+
       end
     end
+
+  rescue => e
+    self.status[path]["message"] = [e.to_s]
+
+  ensure
+    update_status
+
   end
 
   def now

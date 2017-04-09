@@ -1,7 +1,4 @@
-#!/bin/bash
-
-env > /tmp/aa.log
-exit
+#!/bin/env ruby
 
 BASE_DIR = File.expand_path(File.dirname(__FILE__)+"/..")
 
