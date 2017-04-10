@@ -1,0 +1,29 @@
+* {
+	font-size: small;
+}
+
+table{
+	width: 100%;
+	background-color: #ccc;
+}
+
+table tr th {
+	background-color: #fff;
+}
+
+table tr td {
+	background-color: #fff;
+    overflow: hidden;
+	padding: 0px 2px;
+}
+
+table tr td.center {
+	text-align: center;
+	padding: 0px 0px;
+}
+
+table tr td pre {
+    overflow: hidden;
+    width: 100%;
+    margin: 0px;
+}

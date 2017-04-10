@@ -41,6 +41,7 @@ class GitDeploy
 
         self.status[path]["message"] = message.split(/[\r\n]/)
         self.status[path]["last_check_at"] = now
+        self.status[path]["name"] = path.gsub(/^#{Regexp.escape(config["target_path"])}/, "")
 
       end
     end
@@ -59,6 +60,7 @@ class GitDeploy
 
   def git_update(io: nil)
     system("git", "pull", err: io, out: io)
+    system("git", "rev-parse", "HEAD", err: io, out: io)
   end
 
   class << self

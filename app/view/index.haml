@@ -1,24 +1,30 @@
+!!!
 %html
   %head
+    %title
+    %link{rel:"stylesheet", type:"text/css", href:"./index.css"}
   %body
     %table
       %tr
-        %th
+        %th{width: "15%"}
           Path
         %th
           Message
-        %th
+        %th{width: "20%"}
           Last Check At
-        %th
+        %th{width: "10%"}
       - git_deploy.status.each do | path, s |
         %tr
           %td
-            = path
+            = s["name"]
           %td
-            - s["message"].each do | m |
-              %pre= m
-          %td
+            %pre
+              - s["message"].each do | m |
+                = m
+                \
+          %td.center
             = s["last_check_at"]
-          %td
+          %td.center
             %a{href:"?target=#{path}&command=update"}
               Update
+    %a{href:"?&command=update_all"}Update all

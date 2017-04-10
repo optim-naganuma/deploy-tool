@@ -10,6 +10,8 @@ class GitDeploy::Cgi < ::WEBrick::CGI
     when "update_all"
       git_deploy.run
 
+      redirect_to_index
+
     when "update"
       path = request.query["target"].to_s
 
@@ -17,8 +19,10 @@ class GitDeploy::Cgi < ::WEBrick::CGI
 
       git_deploy.git_pull_for(path)
 
+      redirect_to_index
     else
-      index
+      render :index
+
     end
   end
 
@@ -26,14 +30,8 @@ class GitDeploy::Cgi < ::WEBrick::CGI
     index
   end
 
-  def index
-    render("index")
-  end
-
-  def deploy
-    git_deploy.run
-
-    out{ "OK" }
+  def redirect_to_index
+    @responce.set_redirect WEBrick::HTTPStatus::TemporaryRedirect, "?"
   end
 
   def render_404
