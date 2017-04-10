@@ -38,10 +38,11 @@ class GitDeploy::Cgi < ::WEBrick::CGI
     render("404")
   end
 
-  def render(path)
+  def render(path, type=:html)
     template = File.read("#{BASE_DIR}/app/view/#{path}.haml")
     engine = Haml::Engine.new(template)
     @responce.body = engine.render(self)
+    @responce.content_type = "text/#{type}"
   end
 
   def git_deploy
